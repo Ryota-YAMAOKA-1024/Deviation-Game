@@ -1,0 +1,175 @@
+:root {
+  color-scheme: light;
+  font-family: "M PLUS Rounded 1c", "Nunito", "Hiragino Sans", "Yu Gothic", sans-serif;
+  color: #2e2e2e;
+  background-color: #f4f0e6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+}
+
+.nav {
+  background: #efe8dc;
+  border-right: 2px solid #b9b3a9;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.nav-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.nav-subtitle {
+  font-size: 12px;
+  color: #6b6b6b;
+  margin: 4px 0 0 0;
+}
+
+.nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #2e2e2e;
+  background: #fff7eb;
+  border: 1px solid #b9b3a9;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 13px;
+}
+
+.nav-link:hover {
+  border-color: #e68a2e;
+}
+
+.nav-footnote {
+  margin-top: auto;
+  font-size: 12px;
+  color: #6b6b6b;
+}
+
+.content {
+  padding: 32px;
+}
+
+.page {
+  max-width: 900px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  border-bottom: 2px solid #b9b3a9;
+  padding-bottom: 12px;
+}
+
+.page-eyebrow {
+  margin: 0 0 4px 0;
+  font-size: 12px;
+  color: #6b6b6b;
+}
+
+.page-description {
+  margin: 6px 0 0 0;
+  color: #6b6b6b;
+}
+
+.home-link {
+  text-decoration: none;
+  font-size: 13px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: #e68a2e;
+  color: #fff;
+}
+
+.page-body {
+  margin-top: 20px;
+  display: grid;
+  gap: 16px;
+}
+
+.card {
+  background: #fffaf3;
+  border: 1px solid #b9b3a9;
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.card-title {
+  margin: 0 0 8px 0;
+  font-weight: 700;
+}
+
+.card-text {
+  margin: 0;
+  color: #6b6b6b;
+}
+
+.param-box {
+  background: #fff;
+  border: 1px dashed #b9b3a9;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.param-title {
+  margin: 0 0 8px 0;
+  font-size: 12px;
+  color: #6b6b6b;
+}
+
+.param-box pre {
+  margin: 0;
+  font-size: 12px;
+  color: #2e2e2e;
+}
+
+.link-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.link-chip {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid #b9b3a9;
+  color: #2e2e2e;
+  background: #fdf3e0;
+}
+
+@media (max-width: 840px) {
+  .app {
+    grid-template-columns: 1fr;
+  }
+
+  .nav {
+    border-right: none;
+    border-bottom: 2px solid #b9b3a9;
+  }
+}
