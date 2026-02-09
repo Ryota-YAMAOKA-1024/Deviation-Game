@@ -203,9 +203,52 @@ body {
   cursor: pointer;
 }
 
+.secondary-button {
+  border: 1px solid #b9b3a9;
+  border-radius: 8px;
+  padding: 10px 14px;
+  background: #fffaf3;
+  color: #2e2e2e;
+  font-size: 14px;
+  cursor: pointer;
+}
+
 .action-row {
   display: flex;
   justify-content: flex-start;
+}
+
+.drawing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.drawing-timer {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #e68a2e;
+}
+
+.drawing-card {
+  padding: 12px;
+}
+
+.drawing-canvas {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #fff;
+  border: 1px solid #b9b3a9;
+  border-radius: 8px;
+  touch-action: none;
+}
+
+.drawing-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
 }
 
 @media (max-width: 840px) {
