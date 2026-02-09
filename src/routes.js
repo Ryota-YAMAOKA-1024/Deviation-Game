@@ -11,8 +11,13 @@ export const ROUTES = [
   { path: '/team/:teamId', label: 'TeamHome', description: 'チームのホーム' },
   {
     path: '/team/:teamId/distance',
-    label: 'TopicSelection',
-    description: 'ディスタンスモードのお題選択'
+    label: 'DistanceMode',
+    description: 'ディスタンスモード（お題選択）'
+  },
+  {
+    path: '/team/:teamId/realtime',
+    label: 'RealtimeMode',
+    description: 'リアルタイムモード（現在開発中）'
   },
   { path: '/game/:gameId/draw', label: 'DrawingScreen', description: '描画画面' },
   { path: '/game/:gameId/wait', label: 'WaitingScreen', description: '回答待機' },

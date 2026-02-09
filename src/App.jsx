@@ -1,5 +1,9 @@
 import { Link, Route, Routes } from 'react-router-dom';
 import PlaceholderPage from './pages/PlaceholderPage.jsx';
+import RealtimeModePage from './pages/RealtimeModePage.jsx';
+import QuickSignUpPage from './pages/QuickSignUpPage.jsx';
+import ChallengeConfirmPage from './pages/ChallengeConfirmPage.jsx';
+import UserHomePage from './pages/UserHomePage.jsx';
 import { ROUTES, buildPath } from './routes.js';
 
 const flowLinksByLabel = {
@@ -10,46 +14,41 @@ const flowLinksByLabel = {
     { path: '/history', label: 'History' }
   ],
   QuickSignUp: [
-    { path: '/create-team', label: 'CreateTeam' },
-    { path: '/', label: 'UserHome' }
+    { path: '/create-team', label: 'CreateTeam' }
   ],
   CreateTeam: [
-    { path: '/team/:teamId', label: 'TeamHome' },
-    { path: '/', label: 'UserHome' }
+    { path: '/team/:teamId', label: 'TeamHome' }
   ],
   TeamHome: [
-    { path: '/team/:teamId/distance', label: 'TopicSelection' },
-    { path: '/history', label: 'History' },
-    { path: '/', label: 'UserHome' }
+    { path: '/team/:teamId/distance', label: 'DistanceMode' },
+    { path: '/team/:teamId/realtime', label: 'RealtimeMode' },
+    { path: '/history', label: 'History' }
   ],
-  TopicSelection: [
+  RealtimeMode: [
+    { path: '/team/:teamId', label: 'TeamHome' }
+  ],
+  DistanceMode: [
     { path: '/game/:gameId/draw', label: 'DrawingScreen' },
     { path: '/team/:teamId', label: 'TeamHome' }
   ],
   DrawingScreen: [
     { path: '/game/:gameId/wait', label: 'WaitingScreen' },
-    { path: '/team/:teamId/distance', label: 'TopicSelection' }
+    { path: '/team/:teamId/distance', label: 'DistanceMode' }
   ],
   WaitingScreen: [
-    { path: '/challenge/:inviteCode', label: 'ChallengeConfirm' },
-    { path: '/game/:gameId/answer', label: 'AnswerScreen' },
     { path: '/game/:gameId/result', label: 'ResultScreen' }
   ],
   ChallengeConfirm: [
-    { path: '/game/:gameId/answer', label: 'AnswerScreen' },
-    { path: '/', label: 'UserHome' }
+    { path: '/game/:gameId/answer', label: 'AnswerScreen' }
   ],
   AnswerScreen: [
-    { path: '/game/:gameId/result', label: 'ResultScreen' },
-    { path: '/', label: 'UserHome' }
+    { path: '/game/:gameId/result', label: 'ResultScreen' }
   ],
   ResultScreen: [
     { path: '/team/:teamId', label: 'TeamHome' },
     { path: '/history', label: 'History' }
   ],
-  History: [
-    { path: '/', label: 'UserHome' }
-  ],
+  History: [],
   AdminDashboard: [
     { path: '/admin/teams', label: 'AdminTeams' },
     { path: '/admin/games', label: 'AdminGames' },
@@ -82,6 +81,32 @@ const getLinks = (label) =>
   }));
 
 function App() {
+  const renderRouteElement = (route) => {
+    if (route.label === 'UserHome') {
+      return <UserHomePage links={getLinks(route.label)} />;
+    }
+
+    if (route.label === 'QuickSignUp') {
+      return <QuickSignUpPage />;
+    }
+
+    if (route.label === 'ChallengeConfirm') {
+      return <ChallengeConfirmPage />;
+    }
+
+    if (route.label === 'RealtimeMode') {
+      return <RealtimeModePage links={getLinks(route.label)} />;
+    }
+
+    return (
+      <PlaceholderPage
+        title={route.label}
+        description={route.description}
+        links={getLinks(route.label)}
+      />
+    );
+  };
+
   return (
     <div className="app">
       <aside className="nav">
@@ -103,17 +128,7 @@ function App() {
       <main className="content">
         <Routes>
           {ROUTES.map((route) => (
-            <Route
-              key={route.path}
-              path={route.path}
-              element={
-                <PlaceholderPage
-                  title={route.label}
-                  description={route.description}
-                  links={getLinks(route.label)}
-                />
-              }
-            />
+            <Route key={route.path} path={route.path} element={renderRouteElement(route)} />
           ))}
           <Route
             path="*"

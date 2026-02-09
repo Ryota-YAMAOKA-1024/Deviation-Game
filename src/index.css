@@ -163,6 +163,51 @@ body {
   background: #fdf3e0;
 }
 
+.form-stack {
+  display: grid;
+  gap: 10px;
+}
+
+.form-label {
+  font-size: 13px;
+  color: #4d4d4d;
+}
+
+.text-input {
+  width: 100%;
+  border: 1px solid #b9b3a9;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+.form-error {
+  margin: 0;
+  color: #b83a2f;
+  font-size: 12px;
+}
+
+.form-success {
+  margin: 0;
+  color: #2f7a3f;
+  font-size: 12px;
+}
+
+.primary-button {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 14px;
+  background: #e68a2e;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.action-row {
+  display: flex;
+  justify-content: flex-start;
+}
+
 @media (max-width: 840px) {
   .app {
     grid-template-columns: 1fr;
