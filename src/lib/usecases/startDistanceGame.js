@@ -11,9 +11,9 @@ export const createStartDistanceGameUsecase = ({
   gamesRepo = createGamesRepo()
 } = {}) => ({
   async execute(input) {
-    const { teamId, drawerUserId } = input || {};
-    if (!teamId || !drawerUserId) {
-      return err('VALIDATION_ERROR', 'teamId と drawerUserId は必須です。');
+    const { teamId, drawerUserId, selectedTopic } = input || {};
+    if (!teamId || !drawerUserId || !selectedTopic?.id || !selectedTopic?.text) {
+      return err('VALIDATION_ERROR', 'teamId / drawerUserId / selectedTopic は必須です。');
     }
 
     const topicsResult = await topicsRepo.listActiveTopics(DEFAULT_TOPIC_COUNT);
@@ -22,13 +22,16 @@ export const createStartDistanceGameUsecase = ({
       return err('NOT_FOUND', '有効なお題が見つかりません。');
     }
 
-    const selected = topicsResult.data[Math.floor(Math.random() * topicsResult.data.length)];
+    const isSelectedTopicActive = topicsResult.data.some((topic) => topic.id === selectedTopic.id);
+    if (!isSelectedTopicActive) {
+      return err('NOT_FOUND', '選択したお題が見つかりません。画面を再読み込みしてください。');
+    }
 
     return gamesRepo.createDistanceGame({
       teamId,
       drawerUserId,
-      topicId: selected.id,
-      topic: selected.text,
+      topicId: selectedTopic.id,
+      topic: selectedTopic.text,
       inviteCode: createInviteCode()
     });
   }

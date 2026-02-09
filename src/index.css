@@ -208,6 +208,34 @@ body {
   justify-content: flex-start;
 }
 
+.topic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.topic-button {
+  border: 1px solid #d4bda1;
+  border-radius: 8px;
+  background: #fff;
+  color: #2e2e2e;
+  font-size: 14px;
+  text-align: left;
+  padding: 12px;
+  min-height: 56px;
+  cursor: pointer;
+}
+
+.topic-button:hover:not(:disabled) {
+  border-color: #e68a2e;
+  background: #fff5e6;
+}
+
+.topic-button:disabled {
+  cursor: default;
+  opacity: 0.75;
+}
+
 @media (max-width: 840px) {
   .app {
     grid-template-columns: 1fr;
