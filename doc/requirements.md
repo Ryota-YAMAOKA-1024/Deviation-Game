@@ -987,6 +987,14 @@ interface SubmitAnswerUsecase {
 - 各トラックの作業が完了したら、対応する Phase1.x のチェックを更新する。
 - つまり「実行管理はトラック」「完了判定はPhase一覧」に統一する。
 
+#### 6.7 GitHub保護運用（main）
+
+- `main` への直接 push を禁止し、PR経由マージを必須とする。
+- Branch protection の required status checks を有効化する。
+- required checks は `web-build` と `functions-build` を最低要件とする。
+- PRに対するCI実行（buildチェック）を必須とする。
+- 詳細手順は `doc/github-branch-protection.md` を参照。
+
 ## MVP実装範囲
 
 ### Phase 1: 基本構造（最優先）
