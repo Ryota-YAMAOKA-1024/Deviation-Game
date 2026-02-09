@@ -6,7 +6,7 @@
 
 ## 基本原則
 
-- 1スレッド = 1ブランチ = 1機能ブロック。
+- 1スレッド = 1worktree = 1ブランチ = 1機能ブロック。
 - ブランチは `codex/` プレフィックスを必須とする。
 - `main` は常にデプロイ可能状態を維持する。
 - 仕様変更は実装より先に `doc/requirements.md` を更新する。
@@ -60,3 +60,21 @@
 - `DistanceMode -> DrawingScreen -> WaitingScreen -> ResultScreen` が切れない
 - `ChallengeConfirm` 未登録導線（QuickSignUp遷移 -> 復帰）が切れない
 - `submitAnswer` 後に `participants.{userId}.hasAnswered = true` が反映される
+
+## Worktree分離運用（必須）
+
+- 並行開発時は、`1スレッド=1worktree=1ブランチ` を必須とする。
+- ブランチごとに `git worktree` で作業ディレクトリを分離する。
+- Codexスレッドは、必ず対応する worktree ディレクトリで起動する。
+- 同一ディレクトリを複数スレッドで共有しない（ブランチ切替/未コミット変更の干渉を防ぐため）。
+
+推奨例:
+- `../Deviation-A` -> `codex/phase1-8-distance-mode`
+- `../Deviation-B` -> `codex/phase1-10-drawing-screen`
+- `../Deviation-C` -> `codex/phase1-13-answer-screen`
+- `../Deviation-docs` -> `codex/docs-worktree-policy`
+
+運用ルール:
+1. 各スレッドは自分の worktree 内だけで `git switch`/`commit`/`push` を行う。
+2. 別トラックの変更を取り込みたい場合は、`main` マージ後に各worktreeで `git pull` する。
+3. 競合や事故時は、まず該当worktreeだけで復旧し、他worktreeには触れない。
