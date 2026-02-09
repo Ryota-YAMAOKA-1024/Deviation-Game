@@ -17,6 +17,7 @@ yarn-error.log*
 pnpm-debug.log*
 firebase-debug.log
 firebase-debug.*.log
+firestore-debug.log
 
 # Firebase local state
 .firebase/
