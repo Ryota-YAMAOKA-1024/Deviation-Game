@@ -26,12 +26,25 @@ const projectRoot = resolve(process.cwd());
 loadEnvFile(resolve(projectRoot, '.env'));
 loadEnvFile(resolve(projectRoot, '.env.local'));
 
+const loadDefaultProjectId = () => {
+  const filePath = resolve(projectRoot, '.firebaserc');
+  if (!existsSync(filePath)) return null;
+
+  try {
+    const parsed = JSON.parse(readFileSync(filePath, 'utf8'));
+    return parsed?.projects?.default || null;
+  } catch (error) {
+    return null;
+  }
+};
+
 const toBool = (value, fallback = false) => {
   if (value == null) return fallback;
   return String(value).toLowerCase() === 'true';
 };
 
 const emulatorEnabled = toBool(process.env.VITE_USE_FIREBASE_EMULATOR, true);
+const defaultProjectId = loadDefaultProjectId() || 'deviation-game';
 
 const firebaseConfig = {
   apiKey: process.env.VITE_FIREBASE_API_KEY,
@@ -45,8 +58,8 @@ const firebaseConfig = {
 if (emulatorEnabled) {
   firebaseConfig.apiKey ||= 'dummy-api-key';
   firebaseConfig.authDomain ||= 'local-dev.firebaseapp.com';
-  firebaseConfig.projectId ||= 'deviation-local';
-  firebaseConfig.storageBucket ||= 'deviation-local.appspot.com';
+  firebaseConfig.projectId ||= defaultProjectId;
+  firebaseConfig.storageBucket ||= `${firebaseConfig.projectId}.appspot.com`;
   firebaseConfig.messagingSenderId ||= '000000000000';
   firebaseConfig.appId ||= '1:000000000000:web:localdev';
 } else {
