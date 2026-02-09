@@ -4,6 +4,7 @@ import RealtimeModePage from './pages/RealtimeModePage.jsx';
 import QuickSignUpPage from './pages/QuickSignUpPage.jsx';
 import ChallengeConfirmPage from './pages/ChallengeConfirmPage.jsx';
 import UserHomePage from './pages/UserHomePage.jsx';
+import AnswerScreenPage from './pages/AnswerScreenPage.jsx';
 import { ROUTES, buildPath } from './routes.js';
 
 const flowLinksByLabel = {
@@ -96,6 +97,10 @@ function App() {
 
     if (route.label === 'RealtimeMode') {
       return <RealtimeModePage links={getLinks(route.label)} />;
+    }
+
+    if (route.label === 'AnswerScreen') {
+      return <AnswerScreenPage />;
     }
 
     return (

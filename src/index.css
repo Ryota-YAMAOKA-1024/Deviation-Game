@@ -203,9 +203,37 @@ body {
   cursor: pointer;
 }
 
+.secondary-button {
+  border: 1px solid #b9b3a9;
+  border-radius: 8px;
+  padding: 10px 14px;
+  background: #fff7eb;
+  color: #2e2e2e;
+  font-size: 14px;
+  cursor: pointer;
+}
+
 .action-row {
   display: flex;
   justify-content: flex-start;
+}
+
+.answer-preview {
+  margin-top: 12px;
+  min-height: 180px;
+  border: 1px dashed #b9b3a9;
+  border-radius: 10px;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  color: #6b6b6b;
+  font-size: 13px;
+}
+
+.answer-note {
+  margin: 0;
+  color: #6b6b6b;
+  font-size: 12px;
 }
 
 @media (max-width: 840px) {
