@@ -8,7 +8,7 @@
 - 進捗サマリー（2026-02-07）
   - 画面遷移の骨組みは実装済み（主要ルート遷移とプレースホルダー表示）。
   - QuickSignUp -> ChallengeConfirm 復帰フロー（未登録時リダイレクト）は実装済み。
-  - UserHome の名前変更（簡易セッション更新）は実装済み。
+  - UserHome の名前変更とログアウト（簡易セッション更新/削除）は実装済み。
   - 共通基盤A（Repository + Usecase）の仕様固定は完了。
   - `firebase emulators:start` の起動確認は完了。
   - 実装済み共通基盤（雛形）:
@@ -25,6 +25,7 @@
 - [x] **Parallel-Prep5: 統合ルール固定** — 接続原則、受け入れ条件、競合回避ルール、最低スモークテストを固定。
 - [x] **Parallel-Prep6: ブランチ戦略固定** — `codex/` 命名規則、開発フロー、PR受け入れ条件を固定。
 - [x] **Parallel-Prep7: GitHub保護運用固定** — main保護（PR必須/required checks/PR CI）を定義し、`doc/github-branch-protection.md` に手順を明文化。
+- [x] **Parallel-Prep8: 環境変数運用固定** — `.env.local` はローカル専用、共有仕様は `.env.example` のみ更新、PR前に `.env*` 差分なしを確認。
 
 ## 並行トラック運用（3スレッド）
 
@@ -56,7 +57,7 @@
 - [ ] **Phase1.0: ローカル開発基盤** — Vite 初期化 + Firebase Emulator 設定（本番Firebaseは触らない）。
 - [ ] **Phase1.1: Firestore（UserHome範囲）** — users / teams の最小スキーマと読み取り（エミュレータで実施）。
 - [ ] **Phase1.2: Login（`/login`）** — 簡易ログイン画面（ニックネーム登録を含む）と遷移。
-- [ ] **Phase1.3: UserHome（`/`）** — チーム一覧と個人Inboxの表示と遷移（Inboxはリスナー）。
+- [ ] **Phase1.3: UserHome（`/`）** — チーム一覧と個人Inboxの表示、名前変更/ログアウト、遷移（Inboxはリスナー）。
 - [ ] **Phase1.4: Firestore（CreateTeam範囲）** — teams 作成・メンバー追加の書き込み（エミュレータ）。
 - [ ] **Phase1.5: QuickSignUp / CreateTeam** — 簡易登録と新規チーム作成フローと遷移。
 - [ ] **Phase1.6: TeamHome（`/team/:teamId`）** — 統計、未完了出題、モード選択のハブと遷移（リアルタイムモード画面への遷移は実装、遷移先画面自体は今回はプレースホルダーで未実装）。

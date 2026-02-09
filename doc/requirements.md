@@ -716,7 +716,7 @@ const answers = roundDoc.data().answers;      // 回答
 
 | 画面 | 主な入力 | 主な出力/更新 | 次の遷移（通常フロー） |
 |------|----------|---------------|------------------------|
-| UserHome (`/`) | `users/{userId}`, `teams` の一覧 | なし（表示中心） | TeamHome / QuickSignUp / CreateTeam |
+| UserHome (`/`) | `users/{userId}`, `teams` の一覧 | ニックネーム更新、ログアウト（簡易セッション削除） | TeamHome / QuickSignUp / CreateTeam |
 | TeamHome (`/team/:teamId`) | `teams/{teamId}`, 未完了ゲーム概要 | なし（表示中心） | DistanceMode / RealtimeMode |
 | DistanceMode (`/team/:teamId/distance`) | `topics`（候補5件） | `games/{gameId}` 新規作成（topic, drawer, inviteCode） | DrawingScreen |
 | DrawingScreen (`/game/:gameId/draw`) | `games/{gameId}`（topic 等） | `sketchUrl` 保存、`status` 更新 | WaitingScreen（90秒経過で自動遷移） |
@@ -771,7 +771,7 @@ const answers = roundDoc.data().answers;      // 回答
 - `src/lib/usecases/`
   - `startDistanceGame.js`, `completeDrawing.js`, `openChallenge.js`, `submitAnswer.js`
 - `src/lib/session.js`
-  - ニックネーム（簡易ログイン状態）の取得/保存。
+  - ニックネーム（簡易ログイン状態）の取得/保存/削除。
 
 #### 3.3 返却型ルール（固定）
 
@@ -887,7 +887,7 @@ interface SubmitAnswerUsecase {
 
 - 画面遷移の骨組みは実装済み（主要ルート遷移とプレースホルダー表示）。
 - QuickSignUp -> ChallengeConfirm 復帰フロー（未登録時リダイレクト）は実装済み。
-- UserHome の名前変更（簡易セッション更新）は実装済み。
+- UserHome の名前変更とログアウト（簡易セッション更新/削除）は実装済み。
 - 共通基盤A（Repository + Usecase）の仕様固定は完了。
 - `firebase emulators:start` の起動確認は完了。
 - 実装済み共通基盤（雛形）:
@@ -899,7 +899,7 @@ interface SubmitAnswerUsecase {
 
 ### 4. 画面ごとの完了条件（Done Definition）
 
-- UserHome: 名前変更、チーム一覧表示、主要導線遷移が動作。
+- UserHome: 名前変更、ログアウト、チーム一覧表示、主要導線遷移が動作。
 - TeamHome: 統計/未完了出題の表示枠と DistanceMode/RealtimeMode 遷移が動作。
 - DistanceMode: お題5件提示、1件選択、次画面遷移が動作。
 - DrawingScreen: 画面表示時に90秒開始、90秒で自動遷移、保存処理呼び出しが動作。
@@ -940,6 +940,13 @@ interface SubmitAnswerUsecase {
 - DistanceMode -> DrawingScreen -> WaitingScreen -> ResultScreen の遷移が切れない。
 - ChallengeConfirm 未登録導線（QuickSignUpリダイレクト -> 復帰）が切れない。
 - submitAnswer 実行後に `participants.{userId}.hasAnswered=true` が反映される。
+
+#### 5.6 環境変数ファイル運用（固定）
+
+- 各トラックはローカル専用で `.env.local` を作成してよい（コミット禁止）。
+- 共有すべき環境変数仕様は `.env.example` のみ更新する。
+- `.env` / `.env.local` / `.env.*.local` は Git 管理対象外とする（`.gitignore` 準拠）。
+- PR 前に `git status --short` で `.env*` が差分に含まれないことを確認する。
 
 ### 6. ブランチ戦略（並列開発用）
 

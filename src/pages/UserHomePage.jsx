@@ -1,9 +1,13 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PageShell from '../components/PageShell.jsx';
-import { getNickname, setNickname } from '../lib/session.js';
+import { clearNickname, getNickname, setNickname } from '../lib/session.js';
 
 export default function UserHomePage({ links }) {
-  const [nickname, setNicknameInput] = useState(getNickname());
+  const navigate = useNavigate();
+  const initialNickname = getNickname();
+  const [nickname, setNicknameInput] = useState(initialNickname);
+  const [currentNickname, setCurrentNickname] = useState(initialNickname);
   const [error, setError] = useState('');
   const [saved, setSaved] = useState(false);
 
@@ -18,15 +22,25 @@ export default function UserHomePage({ links }) {
     }
 
     setNickname(trimmed);
+    setCurrentNickname(trimmed);
     setError('');
     setSaved(true);
+  };
+
+  const handleLogout = () => {
+    clearNickname();
+    setNicknameInput('');
+    setCurrentNickname('');
+    setError('');
+    setSaved(false);
+    navigate('/quick-signup?redirectTo=%2F');
   };
 
   return (
     <PageShell title="UserHome" description="ユーザーのホーム">
       <div className="card">
         <p className="card-title">プロフィール</p>
-        <p className="card-text">現在の名前: {getNickname() || '未設定'}</p>
+        <p className="card-text">現在の名前: {currentNickname || '未設定'}</p>
       </div>
 
       <form className="card form-stack" onSubmit={handleSubmit}>
@@ -48,6 +62,9 @@ export default function UserHomePage({ links }) {
         {saved ? <p className="form-success">保存しました。</p> : null}
         <button type="submit" className="primary-button">
           保存
+        </button>
+        <button type="button" className="secondary-button" onClick={handleLogout}>
+          ログアウト
         </button>
       </form>
 

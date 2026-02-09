@@ -62,7 +62,8 @@ export const createGamesRepo = () => ({
 
   async submitAnswer(input) {
     const { gameId, userId, answer, submittedAt } = input || {};
-    if (!gameId || !userId || !answer?.trim()) {
+    const normalizedAnswer = typeof answer === 'string' ? answer.trim() : '';
+    if (!gameId || !userId || !normalizedAnswer) {
       return err('VALIDATION_ERROR', 'submitAnswer の入力が不足しています。');
     }
 
@@ -75,7 +76,7 @@ export const createGamesRepo = () => ({
       const submittedAtValue = nowOrServerTimestamp(firestore, submittedAt);
 
       await firestore.updateDoc(gameRef, {
-        [`answers.${userId}.answer`]: answer.trim(),
+        [`answers.${userId}.answer`]: normalizedAnswer,
         [`answers.${userId}.submittedAt`]: submittedAtValue,
         [`participants.${userId}.hasAnswered`]: true
       });

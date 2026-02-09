@@ -37,6 +37,13 @@
   - `doc/progress.md`
 - 共有ファイル変更が必要なら、専用ブランチで先に取り込む。
 
+## 環境変数ファイル運用（固定）
+
+- 各トラックはローカル専用で `.env.local` を作成してよい（コミット禁止）。
+- 共有する環境変数仕様は `.env.example` のみを更新する。
+- `.env` / `.env.local` / `.env.*.local` は Git 管理対象外とする（`.gitignore` 準拠）。
+- PR 前に `git status --short` で `.env*` が差分に含まれないことを確認する。
+
 ## 作業フロー
 
 1. `main` から機能ブランチを作成
@@ -54,6 +61,7 @@
 - `AppResult` 形式統一済み
 - `errorCode`/`message` がUIで扱える
 - 仕様変更時は `doc/requirements.md` と `doc/progress.md` を同期済み
+- `.env*` が差分に含まれていない（例外: `.env.example` のみ可）
 
 ## 最低スモークテスト
 
