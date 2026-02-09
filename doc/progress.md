@@ -24,6 +24,7 @@
 - [x] **Parallel-Prep4: 画面ごとのDone条件定義** — 主要8画面の完了条件を明文化。
 - [x] **Parallel-Prep5: 統合ルール固定** — 接続原則、受け入れ条件、競合回避ルール、最低スモークテストを固定。
 - [x] **Parallel-Prep6: ブランチ戦略固定** — `codex/` 命名規則、開発フロー、PR受け入れ条件を固定。
+- [x] **Parallel-Prep7: GitHub保護運用固定** — main保護（PR必須/required checks/PR CI）を定義し、`doc/github-branch-protection.md` に手順を明文化。
 
 ## 並行トラック運用（3スレッド）
 

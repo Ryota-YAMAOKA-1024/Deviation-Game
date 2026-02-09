@@ -35,6 +35,16 @@
 - PR には概要、目的、関連ドキュメント（`doc/`）の参照を含める
 - UI 変更が入った場合のみスクリーンショットを添付
 
+## PR / CI / Branch Protection 標準手順
+- `main` への直接 push は行わず、必ず PR 経由でマージする。
+- PR は CI 完了（全 required checks 成功）を確認してからマージする。
+- required checks は `web-build` と `functions-build` を設定する。
+- どちらかの check が失敗した場合は、ログ確認 -> 修正コミット -> 同PRで再実行する。
+- Branch protection は `main` に対して以下を有効化する:
+  - PR 必須（`Require a pull request before merging`）
+  - status checks 必須（`Require status checks to pass before merging`）
+  - （推奨）branch最新化必須、会話解決必須、bypass禁止
+
 ## 進捗更新ルール
 - Phase1.x が完了したら `doc/progress.md` の該当項目にチェック（`[x]`）を付ける
 
