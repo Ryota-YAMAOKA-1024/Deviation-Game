@@ -39,7 +39,7 @@ export const createGamesRepo = () => ({
 
   async updateDrawingResult(input) {
     const { gameId, sketchUrl, sketchUploadedAt } = input || {};
-    if (!gameId || !sketchUrl) {
+    if (!gameId || typeof sketchUrl !== 'string' || !sketchUrl.trim()) {
       return err('VALIDATION_ERROR', 'updateDrawingResult の入力が不足しています。');
     }
 
@@ -50,7 +50,7 @@ export const createGamesRepo = () => ({
       const { db, firestore } = clientResult.data;
       const gameRef = firestore.doc(db, `games/${gameId}`);
       await firestore.updateDoc(gameRef, {
-        sketchUrl,
+        sketchUrl: sketchUrl.trim(),
         sketchUploadedAt: nowOrServerTimestamp(firestore, sketchUploadedAt),
         status: 'playing'
       });
